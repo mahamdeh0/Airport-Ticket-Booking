@@ -59,7 +59,7 @@ namespace Airport_Ticket_Booking.Services
             return _bookingService.GetBookingsForPassenger(passengerId);
         }
 
-        private decimal CalculatePrice(decimal basePrice, FlightClass flightClass)
+        public decimal CalculatePrice(decimal basePrice, FlightClass flightClass)
         {
             switch (flightClass)
             {

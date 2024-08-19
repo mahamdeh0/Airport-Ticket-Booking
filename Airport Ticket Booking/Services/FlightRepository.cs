@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Airport_Ticket_Booking.Services
 {
-    internal class FlightRepository : IFlightRepository
+    public class FlightRepository : IFlightRepository
     {
         private readonly IFileStorage _fileStorage;
         private readonly string _filePath = @"C:\Users\maham\Desktop\Airport Ticket Booking\Airport Ticket Booking\flights.csv";

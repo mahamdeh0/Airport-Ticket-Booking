@@ -1,34 +1,49 @@
 ﻿using Airport_Ticket_Booking.Interfaces;
 using Airport_Ticket_Booking.Models;
-using Airport_Ticket_Booking.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Airport_Ticket_Booking.Services
+public class BookingService : IBookingService
 {
-    public class BookingService : IBookingService
+    private readonly IBookingRepository _bookingRepository;
+
+    public BookingService(IBookingRepository bookingRepository)
     {
-        public void BookFlight(Passenger passenger, Flight flight, FlightClass flightClass)
-        {
-            throw new NotImplementedException();
-        }
+        _bookingRepository = bookingRepository;
+    }
 
-        public void CancelBooking(int bookingId)
-        {
-            throw new NotImplementedException();
-        }
+    public void BookFlight(Booking booking)
+    {
+        var bookings = _bookingRepository.GetAllBookings();
+        bookings.Add(booking);
+        _bookingRepository.SaveBookings(bookings);
+    }
 
-        public List<Booking> GetBookingsForPassenger(int passengerId)
+    public void CancelBooking(int bookingId)
+    {
+        var bookings = _bookingRepository.GetAllBookings();
+        var booking = bookings.FirstOrDefault(b => b.BookingId == bookingId);
+        if (booking != null)
         {
-            throw new NotImplementedException();
-        }
-
-        public void ModifyBooking(Booking modifiedBooking)
-        {
-            throw new NotImplementedException();
+            bookings.Remove(booking);
+            _bookingRepository.SaveBookings(bookings);
         }
     }
+    public void ModifyBooking(Booking modifiedBooking)
+    {
+        var bookings = _bookingRepository.GetAllBookings();
+        var booking = bookings.FirstOrDefault(b => b.BookingId == modifiedBooking.BookingId);
+        if (booking != null)
+        {
+            bookings.Remove(booking);
+            bookings.Add(modifiedBooking);
+            _bookingRepository.SaveBookings(bookings);
+        }
+    }
+
+    public List<Booking> GetBookingsForPassenger(int passengerId)
+    {
+        var bookings = _bookingRepository.GetAllBookings();
+        return bookings.Where(b => b.PassengerId == passengerId).ToList();
+    }
+
+
 }

@@ -9,7 +9,7 @@ namespace Airport_Ticket_Booking.Services
     public class BookingRepository : IBookingRepository
     {
         private readonly IFileStorage _fileStorage;
-        private readonly string _filePath = @"C:\Users\maham\Desktop\Airport Ticket Booking\Airport Ticket Booking\bookings.json";
+        private readonly string _filePath = @"C:\Users\maham\Desktop\Airport Ticket Booking\Airport Ticket Booking\bookings.csv";
 
         public BookingRepository(IFileStorage fileStorage)
         {

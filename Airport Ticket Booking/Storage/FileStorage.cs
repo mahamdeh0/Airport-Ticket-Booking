@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Airport_Ticket_Booking.Services
+namespace Airport_Ticket_Booking.Storage
 {
     public class FileStorage : IFileStorage
     {

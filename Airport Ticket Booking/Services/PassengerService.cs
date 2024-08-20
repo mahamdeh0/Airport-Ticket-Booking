@@ -14,7 +14,7 @@ namespace Airport_Ticket_Booking.Services
         private readonly IBookingService _bookingService;
         private readonly IFlightRepository _flightRepository;
 
-        public PassengerService(IBookingService bookingService , IFlightRepository flightRepository)
+        public PassengerService(IBookingService bookingService, IFlightRepository flightRepository)
         {
             _bookingService = bookingService;
             _flightRepository = flightRepository;
@@ -22,62 +22,115 @@ namespace Airport_Ticket_Booking.Services
 
         public void BookFlight(Passenger passenger, Flight flight, FlightClass flightClass)
         {
-            var booking = new Booking
+            try
             {
-                BookingId = GenerateBookingId(),
-                FlightId = flight.FlightNumber,
-                PassengerId = passenger.Id,
-                Class = flightClass,
-                Price = CalculatePrice(flight.BasePrice, flightClass)
-            };
+                var booking = new Booking
+                {
+                    BookingId = GenerateBookingId(),
+                    FlightId = flight.FlightNumber,
+                    PassengerId = passenger.Id,
+                    Class = flightClass,
+                    Price = CalculatePrice(flight.BasePrice, flightClass)
+                };
 
-            _bookingService.BookFlight(booking);
+                _bookingService.BookFlight(booking);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error booking flight: {ex.Message}");
+            }
         }
 
         public void CancelBooking(int bookingId)
         {
-            _bookingService.CancelBooking(bookingId);
+            try
+            {
+                _bookingService.CancelBooking(bookingId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error canceling booking: {ex.Message}");
+            }
         }
 
         public void ModifyBooking(Booking newBooking)
         {
-            _bookingService.ModifyBooking(newBooking);
+            try
+            {
+                _bookingService.ModifyBooking(newBooking);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error modifying booking: {ex.Message}");
+            }
         }
 
         public List<Flight> SearchAvailableFlights(string departureCountry, string destinationCountry, DateTime departureDate, string departureAirport, string arrivalAirport, FlightClass flightClass)
         {
-            var flights = _flightRepository.GetAllFlights();
-            return flights
-                .Where(f => f.DepartureCountry == departureCountry && f.DestinationCountry == destinationCountry &&
-                            f.DepartureDate.Date == departureDate.Date && f.DepartureAirport == departureAirport &&
-                            f.ArrivalAirport == arrivalAirport)
-                .ToList();
+            try
+            {
+                var flights = _flightRepository.GetAllFlights();
+                return flights
+                    .Where(f => f.DepartureCountry == departureCountry && f.DestinationCountry == destinationCountry &&
+                                f.DepartureDate.Date == departureDate.Date && f.DepartureAirport == departureAirport &&
+                                f.ArrivalAirport == arrivalAirport)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error searching for flights: {ex.Message}");
+                return new List<Flight>();
+            }
         }
 
         public List<Booking> ViewPersonalBookings(int passengerId)
         {
-            return _bookingService.GetBookingsForPassenger(passengerId);
+            try
+            {
+                return _bookingService.GetBookingsForPassenger(passengerId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error viewing personal bookings: {ex.Message}");
+                return new List<Booking>();
+            }
         }
 
         public decimal CalculatePrice(decimal basePrice, FlightClass flightClass)
         {
-            switch (flightClass)
+            try
             {
-                case FlightClass.Economy:
-                    return basePrice;
-                case FlightClass.Business:
-                    return basePrice * 1.5m;
-                case FlightClass.FirstClass:
-                    return basePrice * 2.0m;
-                default:
-                    Console.WriteLine("Invalid flight class.");
-                    return -1;
+                switch (flightClass)
+                {
+                    case FlightClass.Economy:
+                        return basePrice;
+                    case FlightClass.Business:
+                        return basePrice * 1.5m;
+                    case FlightClass.FirstClass:
+                        return basePrice * 2.0m;
+                    default:
+                        Console.WriteLine("Invalid flight class.");
+                        return -1;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error calculating price: {ex.Message}");
+                return -1;
             }
         }
 
         private int GenerateBookingId()
         {
-            return new Random().Next(1, 99999);
+            try
+            {
+                return new Random().Next(1, 99999);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error generating booking ID: {ex.Message}");
+                return -1;
+            }
         }
     }
 }

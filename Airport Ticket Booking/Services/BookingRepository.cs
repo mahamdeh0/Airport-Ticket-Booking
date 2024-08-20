@@ -1,6 +1,6 @@
 ﻿using Airport_Ticket_Booking.Interfaces;
 using Airport_Ticket_Booking.Models;
-using Airport_Ticket_Booking.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -18,12 +18,36 @@ namespace Airport_Ticket_Booking.Services
 
         public List<Booking> GetAllBookings()
         {
-            return _fileStorage.ReadFromFile<Booking>(_filePath);
+            try
+            {
+                return _fileStorage.ReadFromFile<Booking>(_filePath);
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine($"An error occurred while reading the bookings file: {ex.Message}");
+                return new List<Booking>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An unexpected error occurred while retrieving bookings: {ex.Message}");
+                return new List<Booking>();
+            }
         }
 
         public void SaveBookings(List<Booking> bookings)
         {
-            _fileStorage.WriteToFile(bookings, _filePath);
+            try
+            {
+                _fileStorage.WriteToFile(bookings, _filePath);
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine($"An error occurred while writing to the bookings file: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An unexpected error occurred while saving bookings: {ex.Message}");
+            }
         }
     }
 }

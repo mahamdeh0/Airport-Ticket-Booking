@@ -2,9 +2,7 @@
 using Airport_Ticket_Booking.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace Airport_Ticket_Booking.Services
 {
@@ -20,13 +18,36 @@ namespace Airport_Ticket_Booking.Services
 
         public List<Flight> GetAllFlights()
         {
-            return _fileStorage.ReadFromFile<Flight>(_filePath);
+            try
+            {
+                return _fileStorage.ReadFromFile<Flight>(_filePath);
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine($"An error occurred while reading the flights file: {ex.Message}");
+                return new List<Flight>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An unexpected error occurred while retrieving flights: {ex.Message}");
+                return new List<Flight>();
+            }
         }
 
         public void SaveFlights(List<Flight> flights)
         {
-            _fileStorage.WriteToFile(flights, _filePath);
-
+            try
+            {
+                _fileStorage.WriteToFile(flights, _filePath);
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine($"An error occurred while writing to the flights file: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An unexpected error occurred while saving flights: {ex.Message}");
+            }
         }
     }
 }

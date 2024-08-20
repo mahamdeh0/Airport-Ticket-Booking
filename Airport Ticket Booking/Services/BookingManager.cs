@@ -12,6 +12,34 @@ namespace Airport_Ticket_Booking.Services
             _flightRepository = flightRepository;
         }
 
+        public List<Flight> FilterBookings(
+            decimal? price = null,
+            string departureCountry = null,
+            string destinationCountry = null,
+            DateTime? departureDate = null,
+            string departureAirport = null,
+            string arrivalAirport = null
+        )
+        {
+            var flights = _flightRepository.GetAllFlights();
+
+            if (price.HasValue)
+                flights = flights.Where(f => f.BasePrice == price.Value).ToList();
+            if (!string.IsNullOrEmpty(departureCountry))
+                flights = flights.Where(f => f.DepartureCountry.Equals(departureCountry, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (!string.IsNullOrEmpty(destinationCountry))
+                flights = flights.Where(f => f.DestinationCountry.Equals(destinationCountry, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (departureDate.HasValue)
+                flights = flights.Where(f => f.DepartureDate.Date == departureDate.Value.Date).ToList();
+            if (!string.IsNullOrEmpty(departureAirport))
+                flights = flights.Where(f => f.DepartureAirport.Equals(departureAirport, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (!string.IsNullOrEmpty(arrivalAirport))
+                flights = flights.Where(f => f.ArrivalAirport.Equals(arrivalAirport, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            return flights;
+        }
+
+
         public void ImportFlightsFromCsv(string filePath)
         {
             var flights = new List<Flight>();

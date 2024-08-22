@@ -1,8 +1,5 @@
 ﻿using Airport_Ticket_Booking.Interfaces;
 using Airport_Ticket_Booking.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace Airport_Ticket_Booking.Services
 {

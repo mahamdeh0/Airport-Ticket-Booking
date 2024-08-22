@@ -1,5 +1,6 @@
 ﻿using Airport_Ticket_Booking.Interfaces;
 using Airport_Ticket_Booking.Models;
+using Airport_Ticket_Booking.Record;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,31 +19,24 @@ namespace Airport_Ticket_Booking.Services
             _validationService = validationService;
         }
 
-        public List<Flight> FilterBookings(
-            decimal? price = null,
-            string departureCountry = null,
-            string destinationCountry = null,
-            DateTime? departureDate = null,
-            string departureAirport = null,
-            string arrivalAirport = null
-        )
+        public List<Flight> FilterBookings(FilterCriteria criteria)
         {
             try
             {
                 var flights = _flightRepository.GetAllFlights();
 
-                if (price.HasValue)
-                    flights = flights.Where(f => f.BasePrice == price.Value).ToList();
-                if (!string.IsNullOrEmpty(departureCountry))
-                    flights = flights.Where(f => f.DepartureCountry.Equals(departureCountry, StringComparison.OrdinalIgnoreCase)).ToList();
-                if (!string.IsNullOrEmpty(destinationCountry))
-                    flights = flights.Where(f => f.DestinationCountry.Equals(destinationCountry, StringComparison.OrdinalIgnoreCase)).ToList();
-                if (departureDate.HasValue)
-                    flights = flights.Where(f => f.DepartureDate.Date == departureDate.Value.Date).ToList();
-                if (!string.IsNullOrEmpty(departureAirport))
-                    flights = flights.Where(f => f.DepartureAirport.Equals(departureAirport, StringComparison.OrdinalIgnoreCase)).ToList();
-                if (!string.IsNullOrEmpty(arrivalAirport))
-                    flights = flights.Where(f => f.ArrivalAirport.Equals(arrivalAirport, StringComparison.OrdinalIgnoreCase)).ToList();
+                if (criteria.Price.HasValue)
+                    flights = flights.Where(f => f.BasePrice == criteria.Price.Value).ToList();
+                if (!string.IsNullOrEmpty(criteria.DepartureCountry))
+                    flights = flights.Where(f => f.DepartureCountry.Equals(criteria.DepartureCountry, StringComparison.OrdinalIgnoreCase)).ToList();
+                if (!string.IsNullOrEmpty(criteria.DestinationCountry))
+                    flights = flights.Where(f => f.DestinationCountry.Equals(criteria.DestinationCountry, StringComparison.OrdinalIgnoreCase)).ToList();
+                if (criteria.DepartureDate.HasValue)
+                    flights = flights.Where(f => f.DepartureDate.Date == criteria.DepartureDate.Value.Date).ToList();
+                if (!string.IsNullOrEmpty(criteria.DepartureAirport))
+                    flights = flights.Where(f => f.DepartureAirport.Equals(criteria.DepartureAirport, StringComparison.OrdinalIgnoreCase)).ToList();
+                if (!string.IsNullOrEmpty(criteria.ArrivalAirport))
+                    flights = flights.Where(f => f.ArrivalAirport.Equals(criteria.ArrivalAirport, StringComparison.OrdinalIgnoreCase)).ToList();
 
                 return flights;
             }

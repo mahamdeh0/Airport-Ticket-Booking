@@ -12,9 +12,10 @@ class Program
         IBookingRepository bookingRepository = new BookingRepository(fileStorage);
         IBookingService bookingService = new BookingService(bookingRepository);
         IValidationService validationService = new ValidationService();
+        IBookingManager bookingManager = new BookingManager(flightRepository, validationService);
         IPassengerService passengerService = new PassengerService(bookingService, flightRepository);
 
-        var menu = new Menu(bookingService, flightRepository, passengerService, validationService);
+        var menu = new Menu(bookingService, flightRepository, passengerService, validationService, bookingManager);
         menu.ShowMenu();
     }
 }

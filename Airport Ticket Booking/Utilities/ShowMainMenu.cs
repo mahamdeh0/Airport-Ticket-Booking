@@ -1,12 +1,8 @@
 ﻿using Airport_Ticket_Booking.Interfaces;
-using Airport_Ticket_Booking.Models.Enums;
 using Airport_Ticket_Booking.Models;
+using Airport_Ticket_Booking.Models.Enums;
+using Airport_Ticket_Booking.Record;
 using Airport_Ticket_Booking.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Airport_Ticket_Booking.Utilities
 {
@@ -16,13 +12,16 @@ namespace Airport_Ticket_Booking.Utilities
         private readonly IFlightRepository _flightRepository;
         private readonly IPassengerService _passengerService;
         private readonly IValidationService _validationService;
+        private readonly IBookingManager _bookingManager;
 
-        public Menu(IBookingService bookingService, IFlightRepository flightRepository, IPassengerService passengerService, IValidationService validationService)
+
+        public Menu(IBookingService bookingService, IFlightRepository flightRepository, IPassengerService passengerService, IValidationService validationService, IBookingManager bookingManager)
         {
             _bookingService = bookingService;
             _flightRepository = flightRepository;
             _passengerService = passengerService;
             _validationService = validationService;
+            _bookingManager = bookingManager;
         }
 
         public void ShowMenu()
@@ -37,8 +36,9 @@ namespace Airport_Ticket_Booking.Utilities
                 Console.WriteLine("4. Cancel a Booking");
                 Console.WriteLine("5. Search Available Flights");
                 Console.WriteLine("6. View All Available Flights");
-                Console.WriteLine("7. Import Flights from CSV");
-                Console.WriteLine("8. Exit");
+                Console.WriteLine("7. Filter Bookings");
+                Console.WriteLine("8. Import Flights from CSV");
+                Console.WriteLine("9. Exit");
                 Console.Write("Select an option: ");
 
                 var input = Console.ReadLine();
@@ -63,9 +63,12 @@ namespace Airport_Ticket_Booking.Utilities
                         ViewAllAvailableFlights();
                         break;
                     case "7":
-                        ImportFlightsFromCsv();
+                        FilterBookings();
                         break;
                     case "8":
+                        ImportFlightsFromCsv();
+                        break;
+                    case "9":
                         return;
                     default:
                         Console.WriteLine("Invalid option. Please try again.");
@@ -136,7 +139,7 @@ namespace Airport_Ticket_Booking.Utilities
                     Console.WriteLine("Invalid input. Please enter a valid Flight Class (Economy, Business, FirstClass)");
                 }
 
-                var passenger = new Passenger { Id = passengerId }; 
+                var passenger = new Passenger { Id = passengerId };
                 _passengerService.BookFlight(passenger, flight, flightClass);
 
                 Console.WriteLine("Flight booked successfully");
@@ -329,7 +332,11 @@ namespace Airport_Ticket_Booking.Utilities
                 var destinationCountry = Console.ReadLine();
 
                 Console.Write("Enter Departure Date (yyyy-MM-dd): ");
-                var departureDate = DateTime.Parse(Console.ReadLine());
+                if (!DateTime.TryParse(Console.ReadLine(), out var departureDate))
+                {
+                    Console.WriteLine("Invalid date format.");
+                    return;
+                }
 
                 Console.Write("Enter Departure Airport: ");
                 var departureAirport = Console.ReadLine();
@@ -338,9 +345,22 @@ namespace Airport_Ticket_Booking.Utilities
                 var arrivalAirport = Console.ReadLine();
 
                 Console.Write("Enter Flight Class (Economy, Business, FirstClass): ");
-                var flightClass = Enum.Parse<FlightClass>(Console.ReadLine(), true);
+                if (!Enum.TryParse<FlightClass>(Console.ReadLine(), true, out var flightClass))
+                {
+                    Console.WriteLine("Invalid flight class.");
+                    return;
+                }
 
-                var flights = _passengerService.SearchAvailableFlights(departureCountry, destinationCountry, departureDate, departureAirport, arrivalAirport, flightClass);
+                var criteria = new FlightSearchCriteria(
+                    departureCountry,
+                    destinationCountry,
+                    departureDate,
+                    departureAirport,
+                    arrivalAirport,
+                    flightClass
+                );
+
+                var flights = _passengerService.SearchAvailableFlights(criteria);
 
                 if (flights.Count > 0)
                 {
@@ -361,6 +381,100 @@ namespace Airport_Ticket_Booking.Utilities
             }
             Console.ReadKey();
         }
+
+        private void FilterBookings()
+        {
+            try
+            {
+                Console.WriteLine("Let's filter the bookings according to your preferences.");
+
+                Console.Write("Do you want to filter by Maximum Price? (yes/no): ");
+                bool filterByPrice = Console.ReadLine().Trim().ToLower() == "yes";
+                decimal? price = null;
+                if (filterByPrice)
+                {
+                    Console.Write("Enter Maximum Price: ");
+                    var priceInput = Console.ReadLine();
+                    price = string.IsNullOrEmpty(priceInput) ? (decimal?)null : decimal.Parse(priceInput);
+                }
+
+                Console.Write("Do you want to filter by Departure Country? (yes/no): ");
+                bool filterByDepartureCountry = Console.ReadLine().Trim().ToLower() == "yes";
+                string departureCountry = null;
+                if (filterByDepartureCountry)
+                {
+                    Console.Write("Enter Departure Country: ");
+                    departureCountry = Console.ReadLine();
+                }
+
+                Console.Write("Do you want to filter by Destination Country? (yes/no): ");
+                bool filterByDestinationCountry = Console.ReadLine().Trim().ToLower() == "yes";
+                string destinationCountry = null;
+                if (filterByDestinationCountry)
+                {
+                    Console.Write("Enter Destination Country: ");
+                    destinationCountry = Console.ReadLine();
+                }
+
+                Console.Write("Do you want to filter by Departure Date? (yes/no): ");
+                bool filterByDepartureDate = Console.ReadLine().Trim().ToLower() == "yes";
+                DateTime? departureDate = null;
+                if (filterByDepartureDate)
+                {
+                    Console.Write("Enter Departure Date (yyyy-MM-dd): ");
+                    var departureDateInput = Console.ReadLine();
+                    departureDate = string.IsNullOrEmpty(departureDateInput) ? (DateTime?)null : DateTime.Parse(departureDateInput);
+                }
+
+                Console.Write("Do you want to filter by Departure Airport? (yes/no): ");
+                bool filterByDepartureAirport = Console.ReadLine().Trim().ToLower() == "yes";
+                string departureAirport = null;
+                if (filterByDepartureAirport)
+                {
+                    Console.Write("Enter Departure Airport: ");
+                    departureAirport = Console.ReadLine();
+                }
+
+                Console.Write("Do you want to filter by Arrival Airport? (yes/no): ");
+                bool filterByArrivalAirport = Console.ReadLine().Trim().ToLower() == "yes";
+                string arrivalAirport = null;
+                if (filterByArrivalAirport)
+                {
+                    Console.Write("Enter Arrival Airport: ");
+                    arrivalAirport = Console.ReadLine();
+                }
+
+                var criteria = new FilterCriteria(
+                    Price: price,
+                    DepartureCountry: departureCountry,
+                    DestinationCountry: destinationCountry,
+                    DepartureDate: departureDate,
+                    DepartureAirport: departureAirport,
+                    ArrivalAirport: arrivalAirport
+                );
+
+                var flights = _bookingManager.FilterBookings(criteria);
+
+                if (flights.Count > 0)
+                {
+                    Console.WriteLine("Filtered flights:");
+                    foreach (var flight in flights)
+                    {
+                        Console.WriteLine($"Flight Number: {flight.FlightNumber}, {flight.DepartureCountry} -> {flight.DestinationCountry}, Departure: {flight.DepartureAirport} -> Arrival: {flight.ArrivalAirport}, Date: {flight.DepartureDate.ToShortDateString()}, Price: {flight.BasePrice}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No flights found matching the criteria.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            Console.ReadKey();
+        }
+
 
         private void ViewAllAvailableFlights()
         {

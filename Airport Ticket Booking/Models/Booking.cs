@@ -1,5 +1,4 @@
 ﻿using Airport_Ticket_Booking.Models.Enums;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Airport_Ticket_Booking.Models

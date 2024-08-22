@@ -1,11 +1,6 @@
 ﻿using Airport_Ticket_Booking.Interfaces;
 using Airport_Ticket_Booking.Models;
 using Airport_Ticket_Booking.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Airport_Ticket_Booking.Services
 {
@@ -65,16 +60,17 @@ namespace Airport_Ticket_Booking.Services
             }
         }
 
-        public List<Flight> SearchAvailableFlights(string departureCountry, string destinationCountry, DateTime departureDate, string departureAirport, string arrivalAirport, FlightClass flightClass)
+        public List<Flight> SearchAvailableFlights(FlightSearchCriteria criteria)
         {
             try
             {
                 var flights = _flightRepository.GetAllFlights();
                 return flights
-                    .Where(f => f.DepartureCountry == departureCountry && f.DestinationCountry == destinationCountry &&
-                                f.DepartureDate.Date == departureDate.Date && f.DepartureAirport == departureAirport &&
-                                f.ArrivalAirport == arrivalAirport)
-                    .ToList();
+                    .Where(f => f.DepartureCountry == criteria.DepartureCountry &&
+                                f.DestinationCountry == criteria.DestinationCountry &&
+                                f.DepartureDate.Date == criteria.DepartureDate.Date &&
+                                f.DepartureAirport == criteria.DepartureAirport &&
+                                f.ArrivalAirport == criteria.ArrivalAirport).ToList();
             }
             catch (Exception ex)
             {

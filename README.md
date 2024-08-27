@@ -1,5 +1,5 @@
 # Airport Ticket Booking System
-
+[![build and test](https://github.com/mahamdeh0/Airport-Ticket-Booking/actions/workflows/build-and-test.yml/badge.svg?branch=testing-with-xunit)](https://github.com/mahamdeh0/Airport-Ticket-Booking/actions/workflows/build-and-test.yml)
 
 Welcome to the Airport Ticket Booking System! This console-based application allows passengers to book flight tickets and manage their reservations while providing managers with tools to handle bookings and import flight data. The system supports essential functionalities such as booking, searching, and managing flights, as well as batch uploading and validation of flight data.
 

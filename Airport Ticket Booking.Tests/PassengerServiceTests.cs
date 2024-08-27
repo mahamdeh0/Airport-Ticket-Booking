@@ -65,7 +65,7 @@ namespace Airport_Ticket_Booking.Tests
         public void SearchAvailableFlights_ValidCriteria_ReturnsFlights()
         {
             //Arrange
-            var criteria = new FlightSearchCriteria(DepartureCountry: "France", DestinationCountry: "Canada", DepartureDate: new DateTime(2024, 11, 17),DepartureAirport: "RFA",ArrivalAirport: "LHR",FlightClass: FlightClass.Economy);
+            var criteria = new FlightSearchCriteria(DepartureCountry: "France", DestinationCountry: "Canada", DepartureDate: new DateTime(2024, 11, 17), DepartureAirport: "RFA", ArrivalAirport: "LHR", FlightClass: FlightClass.Economy);
             var flights = new List<Flight>
             {
                new Flight { FlightNumber = 123, DepartureCountry = "France", DestinationCountry = "Canada", DepartureDate = new DateTime(2024, 11, 17), DepartureAirport = "RFA", ArrivalAirport = "LHR", BasePrice = 100.00m }

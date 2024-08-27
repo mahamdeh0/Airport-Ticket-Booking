@@ -1,11 +1,6 @@
 ﻿using Airport_Ticket_Booking.Models;
 using Airport_Ticket_Booking.Services;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Airport_Ticket_Booking.Tests
 {
@@ -31,7 +26,13 @@ namespace Airport_Ticket_Booking.Tests
             //Arrange
             var flight = new Flight
             {
-                FlightNumber = -1,DepartureCountry = new string('a', 200),DestinationCountry = new string('a', 200),DepartureDate = new DateTime(2000, 11, 1),DepartureAirport = new string('a', 200),ArrivalAirport = new string('a', 200),BasePrice = -100.00m 
+                FlightNumber = -1,
+                DepartureCountry = new string('a', 200),
+                DestinationCountry = new string('a', 200),
+                DepartureDate = new DateTime(2000, 11, 1),
+                DepartureAirport = new string('a', 200),
+                ArrivalAirport = new string('a', 200),
+                BasePrice = -100.00m
             };
             var validationService = new ValidationService();
 
@@ -40,11 +41,11 @@ namespace Airport_Ticket_Booking.Tests
 
             //Assert
             results.Should().NotBeEmpty();
-            results.Should().Contain(x => x.ErrorMessage== "FlightNumber must be a positive integer");
-            results.Should().Contain(x => x.ErrorMessage =="DepartureCountry cannot exceed 100 characters");
-            results.Should().Contain(x => x.ErrorMessage== "DestinationCountry cannot exceed 100 characters");
-            results.Should().Contain(x => x.ErrorMessage== "DepartureDate cannot be in the past");
-            results.Should().Contain(x => x.ErrorMessage=="DepartureAirport cannot exceed 10 characters");
+            results.Should().Contain(x => x.ErrorMessage == "FlightNumber must be a positive integer");
+            results.Should().Contain(x => x.ErrorMessage == "DepartureCountry cannot exceed 100 characters");
+            results.Should().Contain(x => x.ErrorMessage == "DestinationCountry cannot exceed 100 characters");
+            results.Should().Contain(x => x.ErrorMessage == "DepartureDate cannot be in the past");
+            results.Should().Contain(x => x.ErrorMessage == "DepartureAirport cannot exceed 10 characters");
             results.Should().Contain(x => x.ErrorMessage == "ArrivalAirport cannot exceed 10 characters");
             results.Should().Contain(x => x.ErrorMessage == "BasePrice must be greater than zero");
         }

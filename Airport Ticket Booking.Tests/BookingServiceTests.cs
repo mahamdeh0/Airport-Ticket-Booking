@@ -1,10 +1,8 @@
 ﻿using Airport_Ticket_Booking.Interfaces;
-using Airport_Ticket_Booking.Models.Enums;
 using Airport_Ticket_Booking.Models;
-using Moq;
-using Microsoft.VisualStudio.TestPlatform.Utilities;
-using System.IO;
+using Airport_Ticket_Booking.Models.Enums;
 using FluentAssertions;
+using Moq;
 
 namespace Airport_Ticket_Booking.Tests
 {
@@ -74,8 +72,8 @@ namespace Airport_Ticket_Booking.Tests
         public void CancelBooking_BookingNotFound_ReturnMessage()
         {
             //Arrange
-            var bookingId = 99; 
-            var bookings = new List<Booking>(); 
+            var bookingId = 99;
+            var bookings = new List<Booking>();
             _mockBookingRepository.Setup(x => x.GetAllBookings()).Returns(bookings);
             var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
@@ -86,7 +84,7 @@ namespace Airport_Ticket_Booking.Tests
             //Assert
             var output = stringWriter.ToString();
             output.Should().Contain("Booking not found");
-            
+
         }
 
         [Fact]
@@ -123,7 +121,7 @@ namespace Airport_Ticket_Booking.Tests
             //Assert
             var output = stringWriter.ToString();
             output.Should().Contain("Booking not found.");
-            
+
         }
 
         [Fact]

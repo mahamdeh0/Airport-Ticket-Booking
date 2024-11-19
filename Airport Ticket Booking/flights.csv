@@ -1,0 +1,200 @@
+[
+  {
+    "FlightNumber": 8705,
+    "DepartureCountry": "Seattle",
+    "DestinationCountry": "London",
+    "DepartureDate": "2025-01-18T00:00:00",
+    "DepartureAirport": "SEA",
+    "ArrivalAirport": "LHR",
+    "BasePrice": 831.56
+  },
+  {
+    "FlightNumber": 3271,
+    "DepartureCountry": "Paris",
+    "DestinationCountry": "Seattle",
+    "DepartureDate": "2025-01-19T00:00:00",
+    "DepartureAirport": "CDG",
+    "ArrivalAirport": "SEA",
+    "BasePrice": 942.86
+  },
+  {
+    "FlightNumber": 9382,
+    "DepartureCountry": "Miami",
+    "DestinationCountry": "Los Angeles",
+    "DepartureDate": "2025-04-22T00:00:00",
+    "DepartureAirport": "MIA",
+    "ArrivalAirport": "LAX",
+    "BasePrice": 739.09
+  },
+  {
+    "FlightNumber": 4497,
+    "DepartureCountry": "Sydney",
+    "DestinationCountry": "Chicago",
+    "DepartureDate": "2024-09-10T00:00:00",
+    "DepartureAirport": "SYD",
+    "ArrivalAirport": "ORD",
+    "BasePrice": 383.27
+  },
+  {
+    "FlightNumber": 1307,
+    "DepartureCountry": "Singapore",
+    "DestinationCountry": "San Francisco",
+    "DepartureDate": "2024-11-18T00:00:00",
+    "DepartureAirport": "SIN",
+    "ArrivalAirport": "SFO",
+    "BasePrice": 498.74
+  },
+  {
+    "FlightNumber": 7540,
+    "DepartureCountry": "Singapore",
+    "DestinationCountry": "London",
+    "DepartureDate": "2025-03-05T00:00:00",
+    "DepartureAirport": "SIN",
+    "ArrivalAirport": "LHR",
+    "BasePrice": 546.17
+  },
+  {
+    "FlightNumber": 9135,
+    "DepartureCountry": "Delhi",
+    "DestinationCountry": "Boston",
+    "DepartureDate": "2025-03-19T00:00:00",
+    "DepartureAirport": "DEL",
+    "ArrivalAirport": "BOS",
+    "BasePrice": 173.11
+  },
+  {
+    "FlightNumber": 7186,
+    "DepartureCountry": "Hong Kong",
+    "DestinationCountry": "New York",
+    "DepartureDate": "2025-03-29T00:00:00",
+    "DepartureAirport": "HKG",
+    "ArrivalAirport": "JFK",
+    "BasePrice": 427.53
+  },
+  {
+    "FlightNumber": 4861,
+    "DepartureCountry": "Denver",
+    "DestinationCountry": "Frankfurt",
+    "DepartureDate": "2025-08-15T00:00:00",
+    "DepartureAirport": "DEN",
+    "ArrivalAirport": "FRA",
+    "BasePrice": 842.50
+  },
+  {
+    "FlightNumber": 8671,
+    "DepartureCountry": "Chicago",
+    "DestinationCountry": "Hong Kong",
+    "DepartureDate": "2025-01-18T00:00:00",
+    "DepartureAirport": "ORD",
+    "ArrivalAirport": "HKG",
+    "BasePrice": 481.16
+  },
+  {
+    "FlightNumber": 3377,
+    "DepartureCountry": "Sydney",
+    "DestinationCountry": "Seattle",
+    "DepartureDate": "2025-03-12T00:00:00",
+    "DepartureAirport": "SYD",
+    "ArrivalAirport": "SEA",
+    "BasePrice": 497.51
+  },
+  {
+    "FlightNumber": 1325,
+    "DepartureCountry": "Hong Kong",
+    "DestinationCountry": "Sydney",
+    "DepartureDate": "2024-11-24T00:00:00",
+    "DepartureAirport": "HKG",
+    "ArrivalAirport": "SYD",
+    "BasePrice": 340.24
+  },
+  {
+    "FlightNumber": 2749,
+    "DepartureCountry": "Delhi",
+    "DestinationCountry": "Frankfurt",
+    "DepartureDate": "2024-09-16T00:00:00",
+    "DepartureAirport": "DEL",
+    "ArrivalAirport": "FRA",
+    "BasePrice": 124.97
+  },
+  {
+    "FlightNumber": 4261,
+    "DepartureCountry": "Chicago",
+    "DestinationCountry": "Delhi",
+    "DepartureDate": "2025-06-01T00:00:00",
+    "DepartureAirport": "ORD",
+    "ArrivalAirport": "DEL",
+    "BasePrice": 656.84
+  },
+  {
+    "FlightNumber": 1991,
+    "DepartureCountry": "Los Angeles",
+    "DestinationCountry": "London",
+    "DepartureDate": "2025-08-14T00:00:00",
+    "DepartureAirport": "LAX",
+    "ArrivalAirport": "LHR",
+    "BasePrice": 518.84
+  },
+  {
+    "FlightNumber": 1040,
+    "DepartureCountry": "Seattle",
+    "DestinationCountry": "Hong Kong",
+    "DepartureDate": "2025-04-01T00:00:00",
+    "DepartureAirport": "SEA",
+    "ArrivalAirport": "HKG",
+    "BasePrice": 650.28
+  },
+  {
+    "FlightNumber": 7733,
+    "DepartureCountry": "Seattle",
+    "DestinationCountry": "Miami",
+    "DepartureDate": "2025-02-08T00:00:00",
+    "DepartureAirport": "SEA",
+    "ArrivalAirport": "MIA",
+    "BasePrice": 420.16
+  },
+  {
+    "FlightNumber": 5223,
+    "DepartureCountry": "Seoul",
+    "DestinationCountry": "Delhi",
+    "DepartureDate": "2024-11-22T00:00:00",
+    "DepartureAirport": "ICN",
+    "ArrivalAirport": "DEL",
+    "BasePrice": 347.78
+  },
+  {
+    "FlightNumber": 3447,
+    "DepartureCountry": "Frankfurt",
+    "DestinationCountry": "Sydney",
+    "DepartureDate": "2025-06-14T00:00:00",
+    "DepartureAirport": "FRA",
+    "ArrivalAirport": "SYD",
+    "BasePrice": 586.70
+  },
+  {
+    "FlightNumber": 8621,
+    "DepartureCountry": "Boston",
+    "DestinationCountry": "Los Angeles",
+    "DepartureDate": "2024-11-11T00:00:00",
+    "DepartureAirport": "BOS",
+    "ArrivalAirport": "LAX",
+    "BasePrice": 302.89
+  },
+  {
+    "FlightNumber": 7844,
+    "DepartureCountry": "Dallas-Fort Worth",
+    "DestinationCountry": "Seoul",
+    "DepartureDate": "2025-07-04T00:00:00",
+    "DepartureAirport": "DFW",
+    "ArrivalAirport": "ICN",
+    "BasePrice": 322.28
+  },
+  {
+    "FlightNumber": 9382,
+    "DepartureCountry": "Seattle",
+    "DestinationCountry": "Delhi",
+    "DepartureDate": "2025-05-11T00:00:00",
+    "DepartureAirport": "SEA",
+    "ArrivalAirport": "DEL",
+    "BasePrice": 352.25
+  }
+]
